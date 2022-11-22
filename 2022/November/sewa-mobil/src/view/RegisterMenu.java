@@ -409,6 +409,9 @@ public class RegisterMenu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        MainMenu MM = new MainMenu();
+        dispose();
+        MM.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -518,4 +521,8 @@ public class RegisterMenu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
+
+    private MainMenu MainMenu() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
