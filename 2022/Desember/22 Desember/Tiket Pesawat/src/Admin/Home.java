@@ -72,6 +72,28 @@ public class Home extends javax.swing.JFrame {
     public void getTableTiket(){
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("id_tiket");
+        model.addColumn("bandara");
+        model.addColumn("maskapai");
+        model.addColumn("destinasi");
+        model.addColumn("QTY");
+        
+        try {
+            String sql = "select * from tb_tiket";
+            java.sql.Connection conn= database.ConnectDB.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                model.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5)});
+            }
+            tbl_tiket.setModel(model);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "ERROR : " + e);
+        }
+    }
+    
+    public void getTableRiwayat(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("id_penerbangan");
         model.addColumn("nama_lengkap");
         model.addColumn("bandara");
         model.addColumn("maskapai");
@@ -80,17 +102,16 @@ public class Home extends javax.swing.JFrame {
         model.addColumn("jam");
         model.addColumn("kelas");
         model.addColumn("QTY");
-        model.addColumn("harga");
-        
+        model.addColumn("harga_total");
         try {
-            String sql = "select * from tb_tiket";
+            String sql = "select * from tb_riwayat";
             java.sql.Connection conn= database.ConnectDB.configDB();
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-                model.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7),res.getString(8),res.getString(9),res.getString(10)});
+                model.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5), res.getString(6),res.getString(7),res.getString(8),res.getString(9),res.getString(10)});
             }
-            tbl_tiket.setModel(model);
+            tbl_riwayat.setModel(model);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "ERROR : " + e);
         }
@@ -137,6 +158,18 @@ public class Home extends javax.swing.JFrame {
         btn_uhapus = new javax.swing.JButton();
         btn_uedit = new javax.swing.JButton();
         select_name = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        Uiduser = new javax.swing.JTextField();
+        Unama = new javax.swing.JTextField();
+        Unohp = new javax.swing.JTextField();
+        Uemail = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        Ualamat = new javax.swing.JTextArea();
+        btn_uedit1 = new javax.swing.JButton();
         DATA_TIKET = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txt_tcari = new javax.swing.JTextField();
@@ -147,18 +180,10 @@ public class Home extends javax.swing.JFrame {
         btn_thapus = new javax.swing.JButton();
         btn_ttambah = new javax.swing.JButton();
         btn_tedit = new javax.swing.JButton();
-        btn_tsave = new javax.swing.JButton();
         RIWAYAT = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        txt_rcari = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
         tbl_riwayat = new javax.swing.JTable();
-        cmb_rpilih = new javax.swing.JComboBox<>();
-        btn_rcari = new javax.swing.JButton();
-        btn_rhapus = new javax.swing.JButton();
-        btn_rtambah = new javax.swing.JButton();
-        btn_redit = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -466,32 +491,83 @@ public class Home extends javax.swing.JFrame {
         select_name.setForeground(new java.awt.Color(255, 255, 255));
         select_name.setText("SELECT EMAIL");
 
+        jLabel11.setText("ID USER");
+
+        jLabel12.setText("NAMA");
+
+        jLabel13.setText("NO HP");
+
+        jLabel14.setText("EMAIL");
+
+        jLabel15.setText("ALAMAT");
+
+        Uiduser.setEditable(false);
+
+        Unama.setEditable(false);
+
+        Unohp.setEditable(false);
+
+        Uemail.setEditable(false);
+
+        Ualamat.setEditable(false);
+        Ualamat.setColumns(20);
+        Ualamat.setRows(5);
+        jScrollPane3.setViewportView(Ualamat);
+
+        btn_uedit1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btn_uedit1.setText("SIMPAN");
+        btn_uedit1.setEnabled(false);
+        btn_uedit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_uedit1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DATA_USERLayout = new javax.swing.GroupLayout(DATA_USER);
         DATA_USER.setLayout(DATA_USERLayout);
         DATA_USERLayout.setHorizontalGroup(
             DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DATA_USERLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(DATA_USERLayout.createSequentialGroup()
-                        .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(DATA_USERLayout.createSequentialGroup()
-                                .addComponent(txt_ucari, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cmb_upilih, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_ucari))
+                        .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(DATA_USERLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(select_name, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2))
-                        .addContainerGap(84, Short.MAX_VALUE))
+                            .addGroup(DATA_USERLayout.createSequentialGroup()
+                                .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15))
+                                .addGap(29, 29, 29)
+                                .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Uemail, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                                    .addComponent(Unohp, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                                    .addComponent(Unama, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                                    .addComponent(Uiduser)
+                                    .addComponent(jScrollPane3)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(DATA_USERLayout.createSequentialGroup()
-                        .addComponent(btn_uhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_uedit, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(92, 92, 92))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txt_ucari, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmb_upilih, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_ucari)
+                        .addGap(52, 52, 52))))
+            .addGroup(DATA_USERLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(btn_uhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_uedit1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(153, 153, 153)
+                .addComponent(btn_uedit, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         DATA_USERLayout.setVerticalGroup(
             DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,12 +581,33 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(txt_ucari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_ucari)
                     .addComponent(cmb_upilih, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(Uiduser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(Unama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(Unohp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(Uemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(DATA_USERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_uedit)
-                    .addComponent(btn_uhapus))
+                    .addComponent(btn_uhapus)
+                    .addComponent(btn_uedit1))
                 .addGap(17, 17, 17))
         );
 
@@ -521,10 +618,15 @@ public class Home extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setText("DATA TIKET");
 
-        cmb_tpilih.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH", "ID TIKET", "NAMA", "BANDARA", "MASKAPAI", "DESTINASI", "TANGGAL", "JAM", "KELAS", "QTY", "HARGA" }));
+        cmb_tpilih.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pilih", "id_tiket", "bandara", "maskapai", "destinasi", "QTY" }));
 
         btn_tcari.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_tcari.setText("CARI");
+        btn_tcari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tcariActionPerformed(evt);
+            }
+        });
 
         tbl_tiket.setAutoCreateRowSorter(true);
         tbl_tiket.setModel(new javax.swing.table.DefaultTableModel(
@@ -540,6 +642,11 @@ public class Home extends javax.swing.JFrame {
 
         btn_thapus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_thapus.setText("HAPUS");
+        btn_thapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_thapusActionPerformed(evt);
+            }
+        });
 
         btn_ttambah.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btn_ttambah.setText("TAMBAH");
@@ -551,9 +658,11 @@ public class Home extends javax.swing.JFrame {
 
         btn_tedit.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btn_tedit.setText("EDIT");
-
-        btn_tsave.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        btn_tsave.setText("SAVE");
+        btn_tedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_teditActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DATA_TIKETLayout = new javax.swing.GroupLayout(DATA_TIKET);
         DATA_TIKET.setLayout(DATA_TIKETLayout);
@@ -563,10 +672,8 @@ public class Home extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(DATA_TIKETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DATA_TIKETLayout.createSequentialGroup()
-                        .addComponent(btn_tsave, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_ttambah)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btn_tedit, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel9)
                     .addGroup(DATA_TIKETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -596,7 +703,6 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(DATA_TIKETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_tsave)
                     .addComponent(btn_ttambah)
                     .addComponent(btn_tedit))
                 .addGap(8, 8, 8))
@@ -609,48 +715,17 @@ public class Home extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("RIWAYAT");
 
+        tbl_riwayat.setAutoCreateRowSorter(true);
         tbl_riwayat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID PENERBANGAN", "ID TIKET", "NAMA", "BANDARA", "MASKAPAI", "DESTINASI", "TANGGAL", "JAM", "KELAS", "QTY", "HARGA TOTAL"
+
             }
         ));
-        jScrollPane3.setViewportView(tbl_riwayat);
-        if (tbl_riwayat.getColumnModel().getColumnCount() > 0) {
-            tbl_riwayat.getColumnModel().getColumn(0).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(1).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(2).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(3).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(4).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(5).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(6).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(7).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(8).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(9).setMinWidth(200);
-            tbl_riwayat.getColumnModel().getColumn(10).setMinWidth(200);
-        }
-
-        cmb_rpilih.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH", "ID PENERBANGAN", "ID TIKET", "NAMA", "BANDARA", "MASKAPAI", "DESTINASI", "TANGGAL", "JAM", "KELAS", "QTY", "HARGA" }));
-
-        btn_rcari.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_rcari.setText("CARI");
-
-        btn_rhapus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_rhapus.setText("HAPUS");
-
-        btn_rtambah.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        btn_rtambah.setText("TAMBAH");
-
-        btn_redit.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        btn_redit.setText("EDIT");
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton2.setText("SAVE");
+        tbl_riwayat.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane5.setViewportView(tbl_riwayat);
 
         javax.swing.GroupLayout RIWAYATLayout = new javax.swing.GroupLayout(RIWAYAT);
         RIWAYAT.setLayout(RIWAYATLayout);
@@ -660,43 +735,17 @@ public class Home extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(RIWAYATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
-                    .addGroup(RIWAYATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, RIWAYATLayout.createSequentialGroup()
-                            .addComponent(txt_rcari, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cmb_rpilih, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btn_rcari)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_rhapus))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(RIWAYATLayout.createSequentialGroup()
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btn_rtambah)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btn_redit, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(81, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         RIWAYATLayout.setVerticalGroup(
             RIWAYATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RIWAYATLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel10)
-                .addGap(26, 26, 26)
-                .addGroup(RIWAYATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_rcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmb_rpilih, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_rcari)
-                    .addComponent(btn_rhapus))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addGroup(RIWAYATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_rtambah)
-                    .addComponent(btn_redit)
-                    .addComponent(jButton2))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(62, 62, 62)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         jPanel2.add(RIWAYAT, "card5");
@@ -793,8 +842,6 @@ public class Home extends javax.swing.JFrame {
                 java.sql.PreparedStatement pst=conn.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Pembaruan Data Berhasil");
-                new Login().setVisible(true);
-                this.dispose();
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
@@ -834,6 +881,7 @@ public class Home extends javax.swing.JFrame {
         DATA_USER.setVisible(false);
         DATA_TIKET.setVisible(false);
         RIWAYAT.setVisible(true);
+        getTableRiwayat();
     }//GEN-LAST:event_btn_riwayatActionPerformed
 
     private void btn_uhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uhapusActionPerformed
@@ -845,9 +893,9 @@ public class Home extends javax.swing.JFrame {
             pst.execute();
             JOptionPane.showMessageDialog(null, "Penghapusan Data Berhasil");
             getTableUser();
-            } catch (HeadlessException | SQLException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
         
     }//GEN-LAST:event_btn_uhapusActionPerformed
 
@@ -855,6 +903,11 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         int baris = tbl_user.rowAtPoint(evt.getPoint());
         String setSelect = (String) tbl_user.getValueAt(baris, 3);
+        Uiduser.setText((String) tbl_user.getValueAt(baris, 0));
+        Unama.setText((String) tbl_user.getValueAt(baris, 1));
+        Unohp.setText((String) tbl_user.getValueAt(baris, 2));
+        Uemail.setText((String) tbl_user.getValueAt(baris, 3));
+        Ualamat.setText((String) tbl_user.getValueAt(baris, 4));
         select_name.setText(setSelect);
     }//GEN-LAST:event_tbl_userMouseClicked
 
@@ -866,11 +919,100 @@ public class Home extends javax.swing.JFrame {
             if(row == -1){
                 JOptionPane.showMessageDialog(rootPane, "PILIH DATA TELEBIH DULU !!!");
             }else{
-                String selectIndex = (String) tbl_user.getValueAt(row, 0);
-                String selectNama = (String) tbl_user.getValueAt(row, 1);
-                String selectNOHP = (String) tbl_user.getValueAt(row, 2);
-                String selectEmail = (String) tbl_user.getValueAt(row, 3);
-                String selectAlamat = (String) tbl_user.getValueAt(row, 4);
+                btn_uedit1.setEnabled(true);
+                btn_uedit.setEnabled(false);
+                Uiduser.setEditable(true);
+                Unama.setEditable(true);
+                Unohp.setEditable(true);
+                Uemail.setEditable(true);
+                Ualamat.setEditable(true);
+            }
+        }catch (HeadlessException ex){
+            JOptionPane.showMessageDialog(rootPane, "PILIH DATA TELEBIH DULU !!!");
+        }
+    }//GEN-LAST:event_btn_ueditActionPerformed
+
+    private void btn_ttambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ttambahActionPerformed
+        // TODO add your handling code here:
+        new FormTiket().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_ttambahActionPerformed
+
+    private void btn_tcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tcariActionPerformed
+        // TODO add your handling code here:
+        String pilih = (String) cmb_tpilih.getSelectedItem();
+        if(pilih.equals("pilih")){
+            JOptionPane.showMessageDialog(rootPane, "Pastikan Anda Memilih Data Untuk Sortir Data !!!");
+            getTableTiket();
+        }else{
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("id_tiket");
+            model.addColumn("bandara");
+            model.addColumn("maskapai");
+            model.addColumn("destinasi");
+            model.addColumn("QTY");
+            try {
+                String sql = "select * from tb_tiket where "+pilih+"='"+txt_tcari.getText()+"'";
+                java.sql.Connection conn= database.ConnectDB.configDB();
+                java.sql.Statement stm=conn.createStatement();
+                java.sql.ResultSet res=stm.executeQuery(sql);
+                while(res.next()){
+                    model.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5)});
+                }
+                tbl_tiket.setModel(model);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "ERROR : " + e);
+            }
+        }
+    }//GEN-LAST:event_btn_tcariActionPerformed
+
+    private void btn_thapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_thapusActionPerformed
+        // TODO add your handling code here:
+        try {
+            String id = (String) tbl_tiket.getValueAt(tbl_tiket.getSelectedRow(), 0);
+            String sql = "DELETE FROM tb_tiket WHERE `tb_tiket`.`id_tiket` = "+id+"";
+            java.sql.Connection conn = ConnectDB.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Penghapusan Data Berhasil");
+            getTableTiket();
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btn_thapusActionPerformed
+
+    private void btn_teditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teditActionPerformed
+        // TODO add your handling code here:
+        //int collums = tbl_user.getSelectedColumn();
+        try{
+                int row = tbl_tiket.getSelectedRow();
+                FormTiket.id_tiket = (String) tbl_tiket.getValueAt(row, 0);
+                FormTiket.bandara = (String) tbl_tiket.getValueAt(row, 1);
+                FormTiket.maskapai = (String) tbl_tiket.getValueAt(row, 2);
+                FormTiket.destinasi = (String) tbl_tiket.getValueAt(row, 3);
+                FormTiket.QTY = (String) tbl_tiket.getValueAt(row, 4);
+                new FormTiket().setVisible(true);
+                this.dispose();
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(rootPane, "PILIH DATA TELEBIH DULU !!!"+ex);
+        }
+    }//GEN-LAST:event_btn_teditActionPerformed
+
+    private void btn_uedit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uedit1ActionPerformed
+        // TODO add your handling code here:
+        try {   
+                btn_uedit.setEnabled(true);
+                btn_uedit1.setEnabled(false);
+                Uiduser.setEditable(false);
+                Unama.setEditable(false);
+                Unohp.setEditable(false);
+                Uemail.setEditable(false);
+                Ualamat.setEditable(false);
+                String selectIndex = Uiduser.getText();
+                String selectNama = Unama.getText();
+                String selectNOHP = Unohp.getText();
+                String selectEmail = Uemail.getText();
+                String selectAlamat = Ualamat.getText();
 
                 String sql = "UPDATE `tb_user` SET `nama_lengkap`='"+selectNama+"',`no_hp`='"+selectNOHP+"',`email`='"+selectEmail+"',`alamat`='"+selectAlamat+"' WHERE id_user = '"+selectIndex+"'";
                 java.sql.Connection conn = ConnectDB.configDB();
@@ -878,29 +1020,10 @@ public class Home extends javax.swing.JFrame {
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Pengeditan Data Berhasil");
                 getTableUser();
-            }
-        }catch (HeadlessException | SQLException ex){
-            JOptionPane.showMessageDialog(rootPane, "PILIH DATA TELEBIH DULU !!!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "ERROR"+e);
         }
-    }//GEN-LAST:event_btn_ueditActionPerformed
-
-    private void btn_ttambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ttambahActionPerformed
-        // TODO add your handling code here:
-        getTableTiket();
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("id_tiket");
-        model.addColumn("nama_lengkap");
-        model.addColumn("bandara");
-        model.addColumn("maskapai");
-        model.addColumn("destinasi");
-        model.addColumn("tanggal");
-        model.addColumn("jam");
-        model.addColumn("kelas");
-        model.addColumn("QTY");
-        model.addColumn("harga");
-        model.addRow(new Object[]{"", "", "", "", "", "", "", "", "", ""});
-        tbl_tiket.setModel(model);
-    }//GEN-LAST:event_btn_ttambahActionPerformed
+    }//GEN-LAST:event_btn_uedit1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -942,31 +1065,35 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel DATA_USER;
     private javax.swing.JPanel PROFIL_ADMIN;
     private javax.swing.JPanel RIWAYAT;
+    private javax.swing.JTextArea Ualamat;
+    private javax.swing.JTextField Uemail;
+    private javax.swing.JTextField Uiduser;
+    private javax.swing.JTextField Unama;
+    private javax.swing.JTextField Unohp;
     private javax.swing.JButton btn_datauser;
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_pedit;
     private javax.swing.JButton btn_profil;
     private javax.swing.JButton btn_psave;
-    private javax.swing.JButton btn_rcari;
-    private javax.swing.JButton btn_redit;
-    private javax.swing.JButton btn_rhapus;
     private javax.swing.JButton btn_riwayat;
-    private javax.swing.JButton btn_rtambah;
     private javax.swing.JButton btn_tcari;
     private javax.swing.JButton btn_tedit;
     private javax.swing.JButton btn_thapus;
     private javax.swing.JButton btn_tiket;
-    private javax.swing.JButton btn_tsave;
     private javax.swing.JButton btn_ttambah;
     private javax.swing.JButton btn_ucari;
     private javax.swing.JButton btn_uedit;
+    private javax.swing.JButton btn_uedit1;
     private javax.swing.JButton btn_uhapus;
-    private javax.swing.JComboBox<String> cmb_rpilih;
     private javax.swing.JComboBox<String> cmb_tpilih;
     private javax.swing.JComboBox<String> cmb_upilih;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -981,6 +1108,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel select_name;
     private javax.swing.JTable tbl_riwayat;
     private javax.swing.JTable tbl_tiket;
@@ -990,7 +1118,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField txt_pnama;
     private javax.swing.JTextField txt_pnohp;
     private javax.swing.JPasswordField txt_ppassword;
-    private javax.swing.JTextField txt_rcari;
     private javax.swing.JTextField txt_tcari;
     private javax.swing.JTextField txt_ucari;
     // End of variables declaration//GEN-END:variables

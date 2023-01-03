@@ -6,16 +6,6 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup2">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup3">
-    </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup4">
-    </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup5">
-    </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup6">
-    </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup7">
-    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -135,6 +125,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="PROFIL"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
@@ -149,6 +142,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="PESAN TIKET"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
@@ -180,6 +176,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="LOGOUT"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -388,6 +387,9 @@
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="PESAN_TIKETMouseClicked"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="card3"/>
@@ -430,7 +432,7 @@
                                               <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="RBEkonomi" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jRadioButton6" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -445,9 +447,16 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="txt_Uqty" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txt_Uharga" max="32767" attributes="0"/>
                                   <Component id="txt_Utotal" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cmb_Utanggal" min="-2" pref="262" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="txt_Uqty" min="-2" pref="167" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="sisaQTY" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -491,7 +500,10 @@
                           <Component id="cmb_Udestinasi" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmb_Utanggal" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -503,7 +515,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="RBEkonomi" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButton6" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButton7" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -511,6 +523,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_Uqty" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="sisaQTY" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -524,7 +538,7 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btn_Ubayar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace pref="8" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -627,27 +641,27 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_Uid">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="AUTO INSERT"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_Unama">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_UnamaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cmb_Ubandara">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="11">
+                  <StringArray count="1">
                     <StringItem index="0" value="PILIH"/>
-                    <StringItem index="1" value="I GUSTI NGURAH RAI"/>
-                    <StringItem index="2" value="JUANDA"/>
-                    <StringItem index="3" value="SULTAN HASANUDDIN"/>
-                    <StringItem index="4" value="FRANS KAISIEPO"/>
-                    <StringItem index="5" value="SAM RATULANGI"/>
-                    <StringItem index="6" value="SYAMSUDIN NOOR"/>
-                    <StringItem index="7" value="JENDRAL AHMAD YANI"/>
-                    <StringItem index="8" value="SENTANI"/>
-                    <StringItem index="9" value="HUSEIN SASTRA NEGARA"/>
-                    <StringItem index="10" value="SOEKARNO-HATTA"/>
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmb_UbandaraMouseClicked"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -655,23 +669,14 @@
             <Component class="javax.swing.JComboBox" name="cmb_Umaskapai">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="13">
+                  <StringArray count="1">
                     <StringItem index="0" value="PILIH"/>
-                    <StringItem index="1" value="LION AIR"/>
-                    <StringItem index="2" value="WINGS AIR"/>
-                    <StringItem index="3" value="SRIWIJAYA AIR"/>
-                    <StringItem index="4" value="GARUDA INDONESIA"/>
-                    <StringItem index="5" value="NAM AIR"/>
-                    <StringItem index="6" value="CITILINK"/>
-                    <StringItem index="7" value="BATIK AIR"/>
-                    <StringItem index="8" value="PT TRIGANA AIR"/>
-                    <StringItem index="9" value="INDONESIA AIRASIA"/>
-                    <StringItem index="10" value="TRANSNUSA"/>
-                    <StringItem index="11" value="XPRESSAIR"/>
-                    <StringItem index="12" value="SOLOMON AIRLINES"/>
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmb_UmaskapaiMouseClicked"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -679,38 +684,39 @@
             <Component class="javax.swing.JComboBox" name="cmb_Udestinasi">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="12">
+                  <StringArray count="1">
                     <StringItem index="0" value="PILIH"/>
-                    <StringItem index="1" value="BALI"/>
-                    <StringItem index="2" value="DENPASAR"/>
-                    <StringItem index="3" value="MAKASAR"/>
-                    <StringItem index="4" value="PAPUA"/>
-                    <StringItem index="5" value="BANDUNG"/>
-                    <StringItem index="6" value="JAKARTA"/>
-                    <StringItem index="7" value="SUMATRA"/>
-                    <StringItem index="8" value="KALIMANTAN"/>
-                    <StringItem index="9" value="ACEH"/>
-                    <StringItem index="10" value="LAMPUNG"/>
-                    <StringItem index="11" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmb_UdestinasiMouseClicked"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton2">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="12.00 PM"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton3">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="03.00 PM"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton4">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="09.00 PM"/>
               </Properties>
             </Component>
@@ -722,35 +728,54 @@
                 <Property name="text" type="java.lang.String" value="06.00 AM"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+            <Component class="javax.swing.JRadioButton" name="RBEkonomi">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup5"/>
+                  <ComponentRef name="buttonGroup2"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="EKONOMI"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RBEkonomiActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton6">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup6"/>
+                  <ComponentRef name="buttonGroup2"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="BISNIS"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton6ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton7">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup7"/>
+                  <ComponentRef name="buttonGroup2"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="FIRST CLASS"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton7ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_Uqty">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_Uharga">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_Utotal">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btn_Ubayar">
               <Properties>
@@ -762,6 +787,28 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_UbayarActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cmb_Utanggal">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="1">
+                    <StringItem index="0" value="PILIH"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel21">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SISA QTY"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="sisaQTY">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -828,6 +875,7 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
+                    <Property name="autoResizeMode" type="int" value="0"/>
                   </Properties>
                 </Component>
               </SubComponents>

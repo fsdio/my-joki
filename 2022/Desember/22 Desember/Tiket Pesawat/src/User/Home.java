@@ -4,6 +4,19 @@
  */
 package User;
 
+import database.ConnectDB;
+import database.MyData;
+import java.awt.HeadlessException;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Formatter;
+import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author User
@@ -15,8 +28,74 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+        database.MyData data = new MyData();
+        txt_useremail.setText(data.getEmail());
+        getProfil();
+        getTanggal();
+        
     }
-
+    
+    public void getRiwayat(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("id_penerbangan");
+        model.addColumn("nama_lengkap");
+        model.addColumn("bandara");
+        model.addColumn("maskapai");
+        model.addColumn("destinasi");
+        model.addColumn("tanggal");
+        model.addColumn("jam");
+        model.addColumn("kelas");
+        model.addColumn("QTY");
+        model.addColumn("harga_total");
+        try {
+            String sql = "select * from tb_riwayat";
+            java.sql.Connection conn= database.ConnectDB.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                model.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5), res.getString(6),res.getString(7),res.getString(8),res.getString(9),res.getString(10)});
+            }
+            jTable1.setModel(model);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "ERROR : " + e);
+        }
+    }
+    
+    public void getTotal(){
+        Integer harga = Integer.valueOf(txt_Uharga.getText());
+        Integer QTY = Integer.valueOf(txt_Uqty.getText());
+        Integer TQTY = Integer.valueOf(sisaQTY.getText());
+        txt_Utotal.setText(String.valueOf(harga*QTY));
+        sisaQTY.setText(String.valueOf(TQTY-QTY));
+    }
+    public void getTanggal(){
+        Date date = new Date();
+        SimpleDateFormat SDF = new SimpleDateFormat("EEEE, dd MMMM YYYY");
+        SimpleDateFormat tahun = new SimpleDateFormat("YYYY");
+        Calendar cal = new GregorianCalendar(Integer.parseInt(tahun.format(date)), date.getMonth(), date.getDate());
+        for (int i = 1; i <= 7; i++) {
+           cal.add(Calendar.DAY_OF_MONTH, 1);
+           cmb_Utanggal.addItem(SDF.format(cal.getTime()));
+        }
+    }
+    public final void getProfil(){
+        database.MyData data = new MyData();
+        try {
+            String sql = "select nama_lengkap, email, no_hp, password, alamat from tb_user where email='"+data.getEmail()+"'";
+            java.sql.Connection conn=ConnectDB.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                txt_usernama.setText(res.getString(1));
+                txt_useremail.setText(res.getString(2));
+                txt_usernohp.setText(res.getString(3));
+                txt_userpassword.setText(res.getString(4));
+                txt_useralamat.setText(res.getString(5));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "DATA PROFIL ADA YANG SALAH !!!"+e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,11 +107,6 @@ public class Home extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
-        buttonGroup4 = new javax.swing.ButtonGroup();
-        buttonGroup5 = new javax.swing.ButtonGroup();
-        buttonGroup6 = new javax.swing.ButtonGroup();
-        buttonGroup7 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -77,13 +151,16 @@ public class Home extends javax.swing.JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        RBEkonomi = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
         jRadioButton7 = new javax.swing.JRadioButton();
         txt_Uqty = new javax.swing.JTextField();
         txt_Uharga = new javax.swing.JTextField();
         txt_Utotal = new javax.swing.JTextField();
         btn_Ubayar = new javax.swing.JButton();
+        cmb_Utanggal = new javax.swing.JComboBox<>();
+        jLabel21 = new javax.swing.JLabel();
+        sisaQTY = new javax.swing.JTextField();
         RIWAYAT_USER = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -102,11 +179,21 @@ public class Home extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("PROFIL");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("PESAN TIKET");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(102, 102, 102));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -122,6 +209,11 @@ public class Home extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("LOGOUT");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,6 +350,11 @@ public class Home extends javax.swing.JFrame {
         jPanel2.add(PROFIL_USER, "card2");
 
         PESAN_TIKET.setBackground(new java.awt.Color(0, 153, 153));
+        PESAN_TIKET.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PESAN_TIKETMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("PESAN TIKET");
@@ -295,29 +392,78 @@ public class Home extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel19.setText("TOTAL HARGA");
 
-        cmb_Ubandara.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH", "I GUSTI NGURAH RAI", "JUANDA", "SULTAN HASANUDDIN", "FRANS KAISIEPO", "SAM RATULANGI", "SYAMSUDIN NOOR", "JENDRAL AHMAD YANI", "SENTANI", "HUSEIN SASTRA NEGARA", "SOEKARNO-HATTA" }));
+        txt_Uid.setEditable(false);
+        txt_Uid.setText("AUTO INSERT");
 
-        cmb_Umaskapai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH", "LION AIR", "WINGS AIR", "SRIWIJAYA AIR", "GARUDA INDONESIA", "NAM AIR", "CITILINK", "BATIK AIR", "PT TRIGANA AIR", "INDONESIA AIRASIA", "TRANSNUSA", "XPRESSAIR", "SOLOMON AIRLINES" }));
+        txt_Unama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_UnamaActionPerformed(evt);
+            }
+        });
 
-        cmb_Udestinasi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH", "BALI", "DENPASAR", "MAKASAR", "PAPUA", "BANDUNG", "JAKARTA", "SUMATRA", "KALIMANTAN", "ACEH", "LAMPUNG", " " }));
+        cmb_Ubandara.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH" }));
+        cmb_Ubandara.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmb_UbandaraMouseClicked(evt);
+            }
+        });
 
+        cmb_Umaskapai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH" }));
+        cmb_Umaskapai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmb_UmaskapaiMouseClicked(evt);
+            }
+        });
+
+        cmb_Udestinasi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH" }));
+        cmb_Udestinasi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmb_UdestinasiMouseClicked(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("12.00 PM");
 
+        buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("03.00 PM");
 
+        buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("09.00 PM");
 
         buttonGroup1.add(jRadioButton5);
         jRadioButton5.setText("06.00 AM");
 
-        buttonGroup5.add(jRadioButton1);
-        jRadioButton1.setText("EKONOMI");
+        buttonGroup2.add(RBEkonomi);
+        RBEkonomi.setText("EKONOMI");
+        RBEkonomi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBEkonomiActionPerformed(evt);
+            }
+        });
 
-        buttonGroup6.add(jRadioButton6);
+        buttonGroup2.add(jRadioButton6);
         jRadioButton6.setText("BISNIS");
+        jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton6ActionPerformed(evt);
+            }
+        });
 
-        buttonGroup7.add(jRadioButton7);
+        buttonGroup2.add(jRadioButton7);
         jRadioButton7.setText("FIRST CLASS");
+        jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton7ActionPerformed(evt);
+            }
+        });
+
+        txt_Uqty.setText("0");
+
+        txt_Uharga.setEditable(false);
+        txt_Uharga.setText("0");
+
+        txt_Utotal.setEditable(false);
 
         btn_Ubayar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_Ubayar.setText("BAYAR");
@@ -326,6 +472,12 @@ public class Home extends javax.swing.JFrame {
                 btn_UbayarActionPerformed(evt);
             }
         });
+
+        cmb_Utanggal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH" }));
+
+        jLabel21.setText("SISA QTY");
+
+        sisaQTY.setEditable(false);
 
         javax.swing.GroupLayout PESAN_TIKETLayout = new javax.swing.GroupLayout(PESAN_TIKET);
         PESAN_TIKET.setLayout(PESAN_TIKETLayout);
@@ -362,7 +514,7 @@ public class Home extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jRadioButton2))
                                     .addGroup(PESAN_TIKETLayout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
+                                        .addComponent(RBEkonomi)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jRadioButton6)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -372,9 +524,15 @@ public class Home extends javax.swing.JFrame {
                                         .addComponent(jRadioButton3)
                                         .addGap(18, 18, 18)
                                         .addComponent(jRadioButton4))))
-                            .addComponent(txt_Uqty)
                             .addComponent(txt_Uharga)
-                            .addComponent(txt_Utotal))))
+                            .addComponent(txt_Utotal)
+                            .addComponent(cmb_Utanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PESAN_TIKETLayout.createSequentialGroup()
+                                .addComponent(txt_Uqty, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel21)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(sisaQTY)))))
                 .addContainerGap(105, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PESAN_TIKETLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -407,7 +565,9 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(cmb_Udestinasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel14)
+                .addGroup(PESAN_TIKETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(cmb_Utanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(PESAN_TIKETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -418,13 +578,15 @@ public class Home extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(PESAN_TIKETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jRadioButton1)
+                    .addComponent(RBEkonomi)
                     .addComponent(jRadioButton6)
                     .addComponent(jRadioButton7))
                 .addGap(18, 18, 18)
                 .addGroup(PESAN_TIKETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(txt_Uqty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_Uqty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)
+                    .addComponent(sisaQTY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(PESAN_TIKETLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
@@ -435,7 +597,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(txt_Utotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btn_Ubayar)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         jPanel2.add(PESAN_TIKET, "card3");
@@ -456,6 +618,7 @@ public class Home extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout RIWAYAT_USERLayout = new javax.swing.GroupLayout(RIWAYAT_USER);
@@ -508,11 +671,151 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        PROFIL_USER.setVisible(false);
+        PESAN_TIKET.setVisible(false);
+        RIWAYAT_USER.setVisible(true);
+        getRiwayat();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btn_UbayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UbayarActionPerformed
+              
+        String Jam = "";
+        String Kelas = "";
+        if(jRadioButton5.isSelected()){
+            Jam = jRadioButton5.getText();
+        }if(jRadioButton2.isSelected()){
+            Jam = jRadioButton2.getText();
+        }if(jRadioButton3.isSelected()){
+            Jam = jRadioButton3.getText();
+        }if(jRadioButton4.isSelected()){
+            Jam = jRadioButton4.getText();
+        }if(RBEkonomi.isSelected()){
+            Kelas = RBEkonomi.getText();
+        }if(jRadioButton6.isSelected()){
+            Kelas = jRadioButton6.getText();
+        }if(jRadioButton7.isSelected()){
+            Kelas = jRadioButton7.getText();
+        }
         
+//        JOptionPane.showMessageDialog(rootPane, Jam + Kelas);
+            try {
+                String sql = "INSERT INTO `tb_riwayat`(`nama_lengkap`, `bandara`, `maskapai`, `destinasi`, `tanggal`, `jam`, `kelas`, `QTY`, `harga_total`) "
+                        + "VALUES ( '"+txt_Unama.getText()+"','"+cmb_Ubandara.getSelectedItem()+"', '"+cmb_Umaskapai.getSelectedItem()+"','"+cmb_Udestinasi.getSelectedItem()+"',"
+                        + "'"+cmb_Utanggal.getSelectedItem()+"', '"+Jam+"','"+Kelas+"','"+txt_Uqty.getText()+"','"+txt_Utotal.getText()+"')";
+                java.sql.Connection conn = ConnectDB.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                pst.execute();
+                JOptionPane.showMessageDialog(null, "Penambahan Data Berhasil: ");
+                new Admin.Home().setVisible(true);
+                this.dispose();
+            } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "ERROR : " + e);
+            }
     }//GEN-LAST:event_btn_UbayarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        PROFIL_USER.setVisible(true);
+        PESAN_TIKET.setVisible(false);
+        RIWAYAT_USER.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        txt_Unama.setText(txt_usernama.getText());
+        PROFIL_USER.setVisible(false);
+        PESAN_TIKET.setVisible(true);
+        RIWAYAT_USER.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void PESAN_TIKETMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PESAN_TIKETMouseClicked
+        // TODO add your handling code here:
+        getTotal();
+    }//GEN-LAST:event_PESAN_TIKETMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        new PemesananTiketPesawat.Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txt_UnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_UnamaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txt_UnamaActionPerformed
+
+    private void cmb_UbandaraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmb_UbandaraMouseClicked
+        // TODO add your handling code here:
+        try {
+            String sql = "select bandara, QTY from tb_tiket";
+            java.sql.Connection conn=ConnectDB.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                cmb_Ubandara.addItem(res.getString(1));
+                sisaQTY.setText(res.getString(2));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "DATA ADA YANG SALAH !!!"+e);
+        }
+    }//GEN-LAST:event_cmb_UbandaraMouseClicked
+
+    private void cmb_UmaskapaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmb_UmaskapaiMouseClicked
+        // TODO add your handling code here:
+        try {
+            String sql = "select maskapai from tb_tiket";
+            java.sql.Connection conn=ConnectDB.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                cmb_Umaskapai.addItem(res.getString(1));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "DATA ADA YANG SALAH !!!"+e);
+        }
+    }//GEN-LAST:event_cmb_UmaskapaiMouseClicked
+
+    private void cmb_UdestinasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmb_UdestinasiMouseClicked
+        // TODO add your handling code here:
+        try {
+            String sql = "select destinasi from tb_tiket";
+            java.sql.Connection conn=ConnectDB.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                cmb_Udestinasi.addItem(res.getString(1));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "DATA ADA YANG SALAH !!!"+e);
+        }
+    }//GEN-LAST:event_cmb_UdestinasiMouseClicked
+
+    private void RBEkonomiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBEkonomiActionPerformed
+        // TODO add your handling code here:
+        Integer QTY = Integer.valueOf(txt_Uqty.getText());
+        Integer harga = 25000;
+        Integer total = harga*QTY;
+        txt_Uharga.setText(harga.toString());
+        txt_Utotal.setText(total.toString());
+    }//GEN-LAST:event_RBEkonomiActionPerformed
+
+    private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
+        // TODO add your handling code here:
+        Integer QTY = Integer.valueOf(txt_Uqty.getText());
+        Integer harga = 50000;
+        Integer total = harga*QTY;
+        txt_Uharga.setText(harga.toString());
+        txt_Utotal.setText(total.toString());
+    }//GEN-LAST:event_jRadioButton6ActionPerformed
+
+    private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton7ActionPerformed
+        // TODO add your handling code here:
+        Integer QTY = Integer.valueOf(txt_Uqty.getText());
+        Integer harga = 75000;
+        Integer total = harga*QTY;
+        txt_Uharga.setText(harga.toString());
+        txt_Utotal.setText(total.toString());
+    }//GEN-LAST:event_jRadioButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -552,20 +855,17 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PESAN_TIKET;
     private javax.swing.JPanel PROFIL_USER;
+    private javax.swing.JRadioButton RBEkonomi;
     private javax.swing.JPanel RIWAYAT_USER;
     private javax.swing.JButton btn_Ubayar;
     private javax.swing.JButton btn_useredit;
     private javax.swing.JButton btn_usersave;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.ButtonGroup buttonGroup5;
-    private javax.swing.ButtonGroup buttonGroup6;
-    private javax.swing.ButtonGroup buttonGroup7;
     private javax.swing.JComboBox<String> cmb_Ubandara;
     private javax.swing.JComboBox<String> cmb_Udestinasi;
     private javax.swing.JComboBox<String> cmb_Umaskapai;
+    private javax.swing.JComboBox<String> cmb_Utanggal;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -583,6 +883,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -592,7 +893,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
@@ -602,6 +902,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField sisaQTY;
     private javax.swing.JTextField txt_Uharga;
     private javax.swing.JTextField txt_Uid;
     private javax.swing.JTextField txt_Unama;
