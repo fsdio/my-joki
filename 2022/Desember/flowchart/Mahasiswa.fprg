@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="BEM-FIKI"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-01-02 05:22:50 PM"/>
+        <attribute name="created" value="QkVNLUZJS0k7REVTS1RPUC1FUkpVQTY4OzIwMjItMTItMjY7MDk6MzA6NTYgUE07MjkwMA=="/>
+        <attribute name="edited" value="QkVNLUZJS0k7REVTS1RPUC1FUkpVQTY4OzIwMjMtMDEtMDI7MDM6MDE6MDMgUE07NDtCRU0tRklLSTtERVNLVE9QLUVSSlVBNjg7MjAyMi0xMi0yNzsxMjozODo1NSBBTTtGdXRzYWwgU3BvcnRzLmZwcmc7Nzc3Ng=="/>
+        <attribute name="edited" value="QkVNLUZJS0k7REVTS1RPUC1FUkpVQTY4OzIwMjMtMDEtMDI7MDU6MjI6NTAgUE07MTc7MzA0Nw=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <call expression="getMahasiswa"/>
+        </body>
+    </function>
+    <function name="getMahasiswa" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="Mahasiswa" type="String" array="True" size="1"/>
+            <assign variable="Mahasiswa[0]" expression="&quot;INPUT DATA MAHASISWA&quot;"/>
+            <declare name="angka" type="Integer" array="True" size="1"/>
+            <assign variable="angka[0]" expression="100"/>
+            <declare name="kondisi" type="String" array="False" size=""/>
+            <assign variable="kondisi" expression="&quot;Y&quot;"/>
+            <do expression="kondisi == &quot;Y&quot; || kondisi == &quot;y&quot;">
+                <call expression="getTampil(Mahasiswa, angka)"/>
+                <output expression="&quot;Ketik 1&quot;" newline="True"/>
+                <declare name="input" type="Integer" array="False" size=""/>
+                <input variable="input"/>
+                <if expression="input == 1">
+                    <then>
+                        <call expression="getNilai(angka[0])"/>
+                    </then>
+                    <else/>
+                </if>
+                <output expression="&quot;LANJUT ( Y/T ) :&quot;" newline="False"/>
+                <input variable="kondisi"/>
+            </do>
+        </body>
+    </function>
+    <function name="getNilai" type="None" variable="">
+        <parameters>
+            <parameter name="Mahasiswa" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="nm" type="String" array="False" size=""/>
+            <declare name="i, jumlah, n" type="Integer" array="False" size=""/>
+            <declare name="rata" type="Real" array="False" size=""/>
+            <output expression="&quot;NAMA MAHASISWA : &quot;" newline="False"/>
+            <input variable="nm"/>
+            <output expression="&quot;MASUKAN BANYAK NILAI YANG AKAN DI HITUNG : &quot;" newline="True"/>
+            <input variable="n"/>
+            <assign variable="jumlah" expression="0"/>
+            <declare name="nilai" type="Integer" array="True" size="n"/>
+            <for variable="i" start="0" end="n-1" direction="inc" step="1">
+                <output expression="&quot;MASUKAN NILAI MAHASISWA KE-&quot; &amp;i" newline="True"/>
+                <input variable="nilai[i]"/>
+                <assign variable="jumlah" expression="jumlah+nilai[i]"/>
+            </for>
+            <assign variable="rata" expression="jumlah/n"/>
+            <output expression="&quot;======= DATA NILAI MAHASISWA =======&quot;" newline="True"/>
+            <output expression="&quot;NAMA MAHASISWA : &quot; &amp; nm" newline="True"/>
+            <output expression="&quot;JUMLAH KESELURUHAN NILAI : &quot; &amp; jumlah" newline="True"/>
+            <output expression="&quot;RATA RATA NILAI : &quot; &amp; rata" newline="True"/>
+            <if expression="rata &gt; 70">
+                <then>
+                    <output expression="&quot;LULUS&quot;" newline="True"/>
+                </then>
+                <else>
+                    <output expression="&quot;TIDAK LULUS&quot;" newline="True"/>
+                </else>
+            </if>
+            <output expression="&quot;====================================&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="getTampil" type="None" variable="">
+        <parameters>
+            <parameter name="Mahasiswa" type="String" array="True"/>
+            <parameter name="angka" type="Integer" array="True"/>
+        </parameters>
+        <body>
+            <output expression="&quot;===== DATA MAHASISWA =====&quot;" newline="True"/>
+            <output expression="&quot;[1] &quot; &amp; Mahasiswa[0] &amp; &quot; &quot; &amp; angka[0]" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

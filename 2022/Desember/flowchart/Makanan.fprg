@@ -4,81 +4,75 @@
         <attribute name="name" value=""/>
         <attribute name="authors" value="BEM-FIKI"/>
         <attribute name="about" value=""/>
-        <attribute name="saved" value="2022-12-27 12:14:43 PM"/>
-        <attribute name="created" value="QkVNLUZJS0k7REVTS1RPUC1FUkpVQTY4OzIwMjItMTItMjc7MTI6Mzg6NTUgQU07Mjg4Nw=="/>
-        <attribute name="edited" value="QkVNLUZJS0k7REVTS1RPUC1FUkpVQTY4OzIwMjItMTItMjc7MTI6MTQ6NDMgUE07NTszMDA1"/>
+        <attribute name="saved" value="2023-01-02 04:23:22 PM"/>
+        <attribute name="created" value="QkVNLUZJS0k7REVTS1RPUC1FUkpVQTY4OzIwMjItMTItMjY7MDk6MzA6NTYgUE07MjkwMA=="/>
+        <attribute name="edited" value="QkVNLUZJS0k7REVTS1RPUC1FUkpVQTY4OzIwMjMtMDEtMDI7MDM6MDE6MDMgUE07NDtCRU0tRklLSTtERVNLVE9QLUVSSlVBNjg7MjAyMi0xMi0yNzsxMjozODo1NSBBTTtGdXRzYWwgU3BvcnRzLmZwcmc7Nzc3Ng=="/>
+        <attribute name="edited" value="QkVNLUZJS0k7REVTS1RPUC1FUkpVQTY4OzIwMjMtMDEtMDI7MDQ6MjM6MjIgUE07MTU7MzA0NA=="/>
     </attributes>
     <function name="Main" type="None" variable="">
         <parameters/>
         <body>
-            <call expression="getMakanan"/>
+            <call expression="getBisnis"/>
         </body>
     </function>
-    <function name="getBeli" type="None" variable="total">
-        <parameters>
-            <parameter name="harga" type="Integer" array="False"/>
-        </parameters>
-        <body>
-            <declare name="total, qty" type="Integer" array="False" size=""/>
-            <output expression="&quot;MASUKAN QTY : &quot;" newline="False"/>
-            <input variable="qty"/>
-            <assign variable="total" expression="harga*qty"/>
-            <output expression="&quot;TOTAL JUMLAH PEMBAYARAN : Rp. &quot; &amp; total" newline="True"/>
-        </body>
-    </function>
-    <function name="getMakanan" type="None" variable="">
+    <function name="getBisnis" type="None" variable="">
         <parameters/>
         <body>
-            <declare name="nama" type="String" array="True" size="3"/>
-            <assign variable="nama[0]" expression="&quot;SEBLAK MAKYUS&quot;"/>
-            <assign variable="nama[1]" expression="&quot;BASO JEPRET&quot;"/>
-            <assign variable="nama[2]" expression="&quot;JUS LANGGENG&quot;"/>
-            <declare name="harga" type="Integer" array="True" size="3"/>
-            <assign variable="harga[0]" expression="20000"/>
-            <assign variable="harga[1]" expression="34000"/>
-            <assign variable="harga[2]" expression="20000"/>
+            <declare name="Bisnis" type="String" array="True" size="1"/>
+            <assign variable="Bisnis[0]" expression="&quot;Input Data Makanan&quot;"/>
+            <declare name="no" type="Integer" array="True" size="1"/>
+            <assign variable="no[0]" expression="000"/>
             <declare name="kondisi" type="String" array="False" size=""/>
             <assign variable="kondisi" expression="&quot;Y&quot;"/>
             <do expression="kondisi == &quot;Y&quot; || kondisi == &quot;y&quot;">
-                <call expression="getTampil(nama, harga)"/>
-                <output expression="&quot;MASUKAN PILIHAN MENU ?&quot;" newline="True"/>
+                <call expression="getTampil(Bisnis, no)"/>
+                <output expression="&quot;PILIH MENU :&quot;" newline="True"/>
                 <declare name="input" type="Integer" array="False" size=""/>
                 <input variable="input"/>
                 <if expression="input == 1">
                     <then>
-                        <call expression="getBeli(harga[0])"/>
+                        <call expression="getMakanan(no[0])"/>
                     </then>
-                    <else>
-                        <if expression="input == 2">
-                            <then>
-                                <call expression="getBeli(harga[1])"/>
-                            </then>
-                            <else>
-                                <if expression="input == 3">
-                                    <then>
-                                        <call expression="getBeli(harga[2])"/>
-                                    </then>
-                                    <else/>
-                                </if>
-                            </else>
-                        </if>
-                    </else>
+                    <else/>
                 </if>
                 <output expression="&quot;LANJUT ( Y/T ) :&quot;" newline="False"/>
                 <input variable="kondisi"/>
             </do>
         </body>
     </function>
-    <function name="getTampil" type="None" variable="">
+    <function name="getMakanan" type="None" variable="">
         <parameters>
-            <parameter name="nama" type="String" array="True"/>
-            <parameter name="harga" type="Integer" array="True"/>
+            <parameter name="Bisnis" type="Integer" array="False"/>
         </parameters>
         <body>
-            <output expression="&quot;===== LIST MENU MAKANAN =====&quot;" newline="True"/>
-            <output expression="&quot;[1] &quot; &amp; nama[0] &amp; &quot; = Rp. &quot; &amp; harga[0]" newline="True"/>
-            <output expression="&quot;[2] &quot; &amp; nama[1] &amp; &quot; = Rp. &quot; &amp; harga[1]" newline="True"/>
-            <output expression="&quot;[3] &quot; &amp; nama[2] &amp; &quot; = Rp. &quot; &amp; harga[2]" newline="True"/>
+            <declare name="nm" type="String" array="False" size=""/>
+            <declare name="tahun" type="Integer" array="False" size=""/>
+            <output expression="&quot;NAMA MAKANAN : &quot;" newline="False"/>
+            <input variable="nm"/>
+            <output expression="&quot;TAHUN PRODUKSI : &quot;" newline="True"/>
+            <input variable="tahun"/>
+            <output expression="&quot;======= DATA BARANG =======&quot;" newline="True"/>
+            <output expression="&quot;NAMA MAKANAN : &quot; &amp; nm" newline="True"/>
+            <output expression="&quot;TAHUN PRODUKSI : &quot; &amp; tahun" newline="True"/>
+            <if expression="tahun &gt; 2022">
+                <then>
+                    <output expression="&quot;LAYAK DI MAKAN&quot;" newline="True"/>
+                </then>
+                <else>
+                    <output expression="&quot;KEDALUWARSA&quot;" newline="True"/>
+                </else>
+            </if>
+            <output expression="&quot;===========================&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="getTampil" type="None" variable="">
+        <parameters>
+            <parameter name="Bisnis" type="String" array="True"/>
+            <parameter name="no" type="Integer" array="True"/>
+        </parameters>
+        <body>
+            <output expression="&quot;===== MAKANAN =====&quot;" newline="True"/>
+            <output expression="&quot;[1] &quot; &amp; Bisnis[0] &amp; &quot; &quot; &amp; no[0]" newline="True"/>
         </body>
     </function>
 </flowgorithm>
