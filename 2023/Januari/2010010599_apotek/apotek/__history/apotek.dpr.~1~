@@ -1,0 +1,16 @@
+program sewa_lapangan;
+
+uses
+  Vcl.Forms,
+  desain_rutinitas in 'desain_rutinitas.pas' {Form1},
+  db_rutinitas in 'db_rutinitas.pas' {MyDataModule: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TMyDataModule, MyDataModule);
+  Application.Run;
+end.
