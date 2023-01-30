@@ -1,0 +1,33 @@
+unit db_rutinitas;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset, ZAbstractConnection, ZConnection;
+
+type
+  TMyDataModule = class(TDataModule)
+    db_rutinitas: TZConnection;
+    get_jadwal_: TZQuery;
+    source_jadwal: TDataSource;
+    get_jadwal_id_rutinitas: TWideStringField;
+    get_jadwal_nama_olahraga: TWideStringField;
+    get_jadwal_waktu: TTimeField;
+    get_jadwal_tanggal: TDateField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  MyDataModule: TMyDataModule;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2023/01/07 17:22:15.852,F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\apotek.dproj=F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\sewa_lapangan.dproj</Transaction>
+    <Transaction>2023/01/07 17:22:25.384,F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\db_apotek.dfm=F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\db_rutinitas.dfm</Transaction>
+    <Transaction>2023/01/07 17:22:25.384,F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\db_apotek.pas=F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\db_rutinitas.pas</Transaction>
+    <Transaction>2023/01/07 17:22:36.408,F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\desain_apotek.pas=F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\desain_rutinitas.pas</Transaction>
+    <Transaction>2023/01/07 17:22:36.408,F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\desain_apotek.dfm=F:\RAHMAT_SUNJANI\my-joki\2023\Januari\2010010599_apotek\apotek\desain_rutinitas.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

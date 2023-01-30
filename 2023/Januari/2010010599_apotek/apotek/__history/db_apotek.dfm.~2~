@@ -1,0 +1,58 @@
+object MyDataModule: TMyDataModule
+  OldCreateOrder = False
+  Height = 422
+  Width = 798
+  object db_rutinitas: TZConnection
+    ControlsCodePage = cCP_UTF16
+    Catalog = ''
+    Properties.Strings = (
+      'controls_cp=CP_UTF16')
+    HostName = '127.0.0.1'
+    Port = 3306
+    Database = '2010010599_olahraga'
+    User = 'root'
+    Password = ''
+    Protocol = 'mysql'
+    LibraryLocation = 'F:\2010010529_olahraga\sewa-lapangan\Win32\Debug\libmysql.dll'
+    Left = 168
+    Top = 136
+  end
+  object get_jadwal_: TZQuery
+    Connection = db_rutinitas
+    Filtered = True
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * FROM tb_rutinitas;')
+    Params = <>
+    UpdateMode = umUpdateAll
+    Left = 280
+    Top = 168
+    object get_jadwal_id_rutinitas: TWideStringField
+      DisplayLabel = 'ID RUTINITAS'
+      FieldName = 'id_rutinitas'
+      Required = True
+      Size = 100
+    end
+    object get_jadwal_nama_olahraga: TWideStringField
+      DisplayLabel = 'NAMA OLAHRAGA'
+      FieldName = 'nama_olahraga'
+      Required = True
+      Size = 100
+    end
+    object get_jadwal_waktu: TTimeField
+      DisplayLabel = 'WAKTU'
+      FieldName = 'waktu'
+      Required = True
+    end
+    object get_jadwal_tanggal: TDateField
+      DisplayLabel = 'TANGGAL'
+      FieldName = 'tanggal'
+      Required = True
+    end
+  end
+  object source_jadwal: TDataSource
+    DataSet = get_jadwal_
+    Left = 384
+    Top = 112
+  end
+end
