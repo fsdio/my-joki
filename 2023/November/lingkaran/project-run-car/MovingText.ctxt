@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=MovingText
+comment1.params=x\ y\ text
+comment1.target=MovingText(int,\ int,\ java.lang.String)
+comment2.params=
+comment2.target=void\ move()
+comment3.params=g
+comment3.target=void\ draw(java.awt.Graphics)
+numComments=4
